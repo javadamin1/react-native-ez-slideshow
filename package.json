@@ -1,0 +1,16 @@
+{
+  "name": "react-native-ez-slideshow",
+  "version": "0.0.1",
+  "description": "A simple and easy-to-use slideshow component for React Native.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/javadamin1/react-native-ez-slideshow.git"
+  },
+  "author": "Javad Fathi",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-native": ">=0.63.0"
+  }
+}

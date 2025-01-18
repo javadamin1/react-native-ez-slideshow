@@ -1,24 +1,29 @@
-import React, { useState, useEffect, useRef } from "react";
-import { View, FlatList, StyleSheet, Dimensions } from "react-native";
-import SliderItem from "./SliderItem";
-import Pagination from "./Pagination";
+import React, { useState, useEffect, useRef } from 'react';
+import {View, FlatList, StyleSheet, Dimensions} from 'react-native';
+import SliderItem from './SliderItem';
+import Pagination  from "./Pagination";
 
-const { width } = Dimensions.get("screen");
+const {width} = Dimensions.get('screen');
 
 const EzSlideshow = ({
-  images = [],
-  autoPlay = false,
-  duration = 3000,
-  style = {},
-  imageStyle = {},
-}) => {
+                       images = [],
+                       autoPlay = false,
+                       duration = 3000,
+                       style = {},
+                       imageStyle = {}
+                     }) => {
+
+    if (Object.keys(images).length === 0){
+        return null;
+    }
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef(null);
 
   useEffect(() => {
     if (autoPlay) {
       const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) =>
+        setCurrentIndex(prevIndex =>
           prevIndex === images.length - 1 ? 0 : prevIndex + 1
         );
       }, duration);
@@ -27,9 +32,11 @@ const EzSlideshow = ({
     }
   }, [autoPlay, duration, images.length]);
 
+
   useEffect(() => {
     flatListRef.current?.scrollToIndex({ index: currentIndex, animated: true });
   }, [currentIndex]);
+
 
   return (
     <View style={[styles.container, style]}>
@@ -41,11 +48,7 @@ const EzSlideshow = ({
         showsHorizontalScrollIndicator={false}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => (
-          <SliderItem
-            item={item}
-            parendStyles={styles}
-            paginationIndex={currentIndex}
-          />
+          <SliderItem item={item} parentStyles={styles} paginationIndex={currentIndex} imageStyle={imageStyle}  />
         )}
         //onScroll={onScrollHandler}
       />
@@ -58,11 +61,11 @@ const styles = StyleSheet.create({
   container: {
     width: width,
   },
-  card: {
+  card:{
     width: width,
     height: 250,
-    padding: 20,
-  },
+    padding:20,
+  }
 });
 
 export default EzSlideshow;
